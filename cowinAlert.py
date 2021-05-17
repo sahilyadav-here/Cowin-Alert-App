@@ -143,7 +143,7 @@ def print_age(age: None):
 
 
 def run():
-    print(">>>>>> WELCOME TO COWIN ALERT BOT <<<<<<<<\n")
+    print(">>>>>> WELCOME TO COWIN ALERT APP <<<<<<<<\n")
     print("Use variables.json file?")
     use_var = str(input("Choose Y/N : "))
     state = district = age = date = alert_duration = None
