@@ -167,10 +167,7 @@ def run():
                 etag = r.headers["etag"]
                 data = r.json()
                 for point in data["sessions"]:
-                    if (
-                        point["min_age_limit"] == age
-                        and point["available_capacity"] > 0
-                    ):
+                    if (point["min_age_limit"] == age and point["available_capacity"] > 0):
                         found_flag = True
                         point_name = point["name"]
                         point_address = point["address"]
@@ -179,8 +176,9 @@ def run():
                         fee = point["fee"]
                         vaccine = point["vaccine"]
                         output_str.append(
-                            f"1. \n name: {point_name}\naddress: {point_address}\ndose1 capacity: {dose1_slot}\ndose2 capacity: {dose2_slot}\nfee: {fee}\nvaccine: {vaccine}"
+                            f"1. \nName: {point_name}\nAddress: {point_address}\nDose-1 Capacity: {dose1_slot}\nDose-2 Capacity: {dose2_slot}\nFee: {fee}\nVaccine: {vaccine}"
                         )
+                        count += 1
             if found_flag:
                 found_flag = False
                 print(".....................................")
