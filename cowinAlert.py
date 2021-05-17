@@ -26,7 +26,8 @@ def read_variables():
     date = data["date"]
     age = data["age"]
     alert_duration= data['sound_duration']
-    return state, district, date, age, alert_duration
+    polling_duration = data['polling_duration']
+    return state, district, date, age, alert_duration, polling_duration
 
     f.close()
     return secrets
@@ -146,9 +147,9 @@ def run():
     print(">>>>>> WELCOME TO COWIN ALERT APP <<<<<<<<\n")
     print("Use variables.json file?")
     use_var = str(input("Choose Y/N : "))
-    state = district = age = date = alert_duration = None
+    state = district = age = date = alert_duration = polling_duration = None
     if use_var.lower() == "y":
-        state, district, date, age , alert_duration = read_variables()
+        state, district, date, age , alert_duration, polling_duration = read_variables()
     state_id = print_states(state)
     district_id = print_district(state_id, district)
     date = print_date(date)
@@ -166,6 +167,7 @@ def run():
             if r.status_code == 200:
                 etag = r.headers["etag"]
                 data = r.json()
+                count = 1
                 for point in data["sessions"]:
                     if (point["min_age_limit"] == age and point["available_capacity"] > 0):
                         found_flag = True
@@ -176,7 +178,7 @@ def run():
                         fee = point["fee"]
                         vaccine = point["vaccine"]
                         output_str.append(
-                            f"1. \nName: {point_name}\nAddress: {point_address}\nDose-1 Capacity: {dose1_slot}\nDose-2 Capacity: {dose2_slot}\nFee: {fee}\nVaccine: {vaccine}"
+                            f"{count}. \nName: {point_name}\nAddress: {point_address}\nDose-1 Capacity: {dose1_slot}\nDose-2 Capacity: {dose2_slot}\nFee: {fee}\nVaccine: {vaccine}"
                         )
                         count += 1
             if found_flag:
@@ -187,7 +189,7 @@ def run():
                     print(slot)
                 print(".....................................")
                 make_sound_loop(alert_duration)
-            time.sleep(5)
+            time.sleep(5 if polling_duration is None else polling_duration)
     except KeyboardInterrupt:
         print("interrupted!")
 

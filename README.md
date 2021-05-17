@@ -12,6 +12,7 @@ You can set varaibles in `variables.json` file or choose to go with terminal mod
 - date : Date for booking, date has to be formated DD-MM-YYY
 - age : Age group, 18 or 45
 - sound_duration : alert sound duration, default is 10
+- polling_duration : Time(seconds) in which to fetch data from cowin api, default is 5 seconds
 
 ## Inspiration
 I made this script for terminal use, since I sit in front of my computer all day, and have a terminal open throughout.
