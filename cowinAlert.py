@@ -27,10 +27,8 @@ def read_variables():
     age = data["age"]
     alert_duration= data['sound_duration']
     polling_duration = data['polling_duration']
-    return state, district, date, age, alert_duration, polling_duration
-
     f.close()
-    return secrets
+    return state, district, date, age, alert_duration, polling_duration
 
 
 def get_otp(phone_number, secret):
