@@ -1,8 +1,10 @@
 {
     "state": "Delhi",
     "district": "South West Delhi",
-    "date": "18-05-2021",
+    "date": "09-06-2021",
     "age": 18,
     "sound_duration": 10,
-    "polling_duration": 2
+    "polling_duration": 2,
+    "vaccine": "COVAXIN",
+    "dose_number": 1
 }

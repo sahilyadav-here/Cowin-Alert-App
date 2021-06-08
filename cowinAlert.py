@@ -27,7 +27,9 @@ def read_variables():
     age = data["age"]
     alert_duration= data['sound_duration']
     polling_duration = data['polling_duration']
-    return state, district, date, age, alert_duration, polling_duration
+    vaccine = data['vaccine']
+    dose = data['dose_number']
+    return state, district, date, age, alert_duration, polling_duration, vaccine, dose
 
     f.close()
     return secrets
@@ -149,7 +151,7 @@ def run():
     use_var = str(input("Choose Y/N : "))
     state = district = age = date = alert_duration = polling_duration = None
     if use_var.lower() == "y":
-        state, district, date, age , alert_duration, polling_duration = read_variables()
+        state, district, date, age , alert_duration, polling_duration, vaccine, dose = read_variables()
     state_id = print_states(state)
     district_id = print_district(state_id, district)
     date = print_date(date)
@@ -169,16 +171,15 @@ def run():
                 data = r.json()
                 count = 1
                 for point in data["sessions"]:
-                    if (point["min_age_limit"] == age and point["available_capacity"] > 0):
+                    if (point["min_age_limit"] == age and point["available_capacity"] > 0 and vaccine == point['vaccine'] and point[f'available_capacity_dose{dose}'] > 0):
                         found_flag = True
                         point_name = point["name"]
                         point_address = point["address"]
-                        dose1_slot = point["available_capacity_dose1"]
-                        dose2_slot = point["available_capacity_dose2"]
+                        dose_slot = point[f'available_capacity_dose{dose}']
                         fee = point["fee"]
                         vaccine = point["vaccine"]
                         output_str.append(
-                            f"{count}. \nName: {point_name}\nAddress: {point_address}\nDose-1 Capacity: {dose1_slot}\nDose-2 Capacity: {dose2_slot}\nFee: {fee}\nVaccine: {vaccine}"
+                            f"{count}. \nName: {point_name}\nAddress: {point_address}\nDose-{dose} Capacity: {dose_slot}\nFee: {fee}\nVaccine: {vaccine}"
                         )
                         count += 1
             if found_flag:
