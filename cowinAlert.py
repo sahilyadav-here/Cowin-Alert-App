@@ -29,10 +29,8 @@ def read_variables():
     polling_duration = data['polling_duration']
     vaccine = data['vaccine']
     dose = data['dose_number']
-    return state, district, date, age, alert_duration, polling_duration, vaccine, dose
-
     f.close()
-    return secrets
+    return state, district, date, age, alert_duration, polling_duration, vaccine, dose
 
 
 def get_otp(phone_number, secret):
